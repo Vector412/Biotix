@@ -8,63 +8,151 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*/  IPointerExitHandler
 {
-    [SerializeField] int countCell;
-    public int currentCountCell { get; set; }
+    [SerializeField] int currentCountCell;
+    public int count;
+
     [SerializeField] Text countText;
     [SerializeField] CellColorGroup colorGroup;
     [SerializeField] Image imageColor;
-    [SerializeField] Image enCircle;
+    [SerializeField] LineRenderer line;
 
+    public Action ChangeColor = delegate { };
 
-
-    bool isFull;
+    bool isAddStarted;
+    bool isMinusStarted;
     public bool isSelect { get; set; }
 
-    public Action WaitDirection = delegate { };
-
-    [SerializeField] float delay;
-
-
-    public int Count
+    public int CurCount
     {
-        get => countCell;
+        get => currentCountCell;
         set
         {
-            countCell = value;
+            currentCountCell = value;
             ChangeCount();
         }
     }
 
+    private void Awake()
+    {
+        line = GetComponent<LineRenderer>();
+    }
     private void Start()
     {
-
+        currentCountCell = count;
         if (colorGroup != null)
         {
             imageColor.color = colorGroup.GroupColor;
-            Debug.Log(imageColor.color);
         }
         else
         {
             imageColor.color = Color.white;
-            Debug.Log("null");
         }
 
-
-
-        isFull = true;
-
-        currentCountCell = countCell;
         countText.text = currentCountCell.ToString();
     }
 
+    IEnumerator AddCount()
+    {
+        isAddStarted = true;
+        while (currentCountCell < count)
+        {
+            CurCount++;
+            yield return new WaitForSeconds(1f);
+            if (currentCountCell == count)
+            {
+                StopCoroutine(AddCount());
+                isAddStarted = false;
+            }
+        }
+    }
+
+    IEnumerator MinusCount()
+    {
+        isMinusStarted = true;
+        while (currentCountCell > count)
+        {
+            CurCount--;
+            yield return new WaitForSeconds(1f);
+            if (currentCountCell == count)
+            {
+                StopCoroutine(MinusCount());
+                isMinusStarted = false;
+            }
+        }
+    }
+
+    private void Check()
+    {
+        if (currentCountCell < count && !isAddStarted && colorGroup)
+        {
+            StartCoroutine(AddCount());
+            isAddStarted = true;
+        }
+        else if (currentCountCell > count && !isMinusStarted && colorGroup)
+        {
+            StartCoroutine(MinusCount());
+            isMinusStarted = true;
+        }
+    }
+
+    
+    public void Add(int count, CellColorGroup group)
+    {
+
+        if (Group == group)
+        {
+            CurCount += count;
+        }
+        else
+        {
+            CurCount -= count;
+            if (CurCount < 0)
+            {
+                imageColor.color = group.GroupColor;
+                colorGroup = group;
+                CurCount *= -1;
+                ChangeColor();
+            }
+            else if (CurCount == 0)
+            {
+                Group = null;
+                imageColor.color = Color.white;
+            }
+        }
+    }
+
+    public Vector3 FromScreenToWorld(Vector3 pos)
+    {
+        var t = Camera.main.ScreenToWorldPoint(pos);
+        t.z = 0;
+        return t;
+    }
+
+    private void LateUpdate()
+    {
+        Check();
+        if (isSelect)
+        {
+            var pathFrom = FromScreenToWorld(transform.position);
+            var pathTo = FromScreenToWorld(Handle.Instance.CursorPosition);
+            line.SetPosition(0, pathFrom);
+            line.SetPosition(1, pathTo);
+        }
+    }
 
     public void Select()
     {
-        enCircle.gameObject.SetActive(true);
+        line.enabled = true;
+        isSelect = true;
     }
+    public void Diselect()
+    {
+        line.enabled = false;
+    }
+
     public void ChangeCount()
     {
-        countText.text = Count.ToString();
+        countText.text = CurCount.ToString();
     }
 
     public CellColorGroup Group
@@ -75,52 +163,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
             if (colorGroup != null)
             {
                 imageColor.color = colorGroup.GroupColor;
-                Debug.Log(imageColor.color);
             }
             else
             {
                 imageColor.color = Color.white;
-                Debug.Log("null");
             }
         }
     }
 
-    public void Add(int count, CellColorGroup group)
-    {
-      
-        if (Group == group)
-        {
-            Count += count;
-        }
-        else
-        {
-            Count -= count;
-            if (Count < 0)
-            {
-                imageColor.color = group.GroupColor;
-                colorGroup = group;
-                Group = group;
-                Debug.Log(group.name);
-               
-                Count *= -1;
-            }
-            if (Count == 0)
-            {
-                Group = null;
-                imageColor.color = Color.white;
-            }
-        }
-      
-    }
-
-    /// <summary>
-    /// ///
-    /// </summary>
-    /// <param name="eventData"></param>
-
-
-
- /*  public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         Handle.Instance.SelectCell = this;
         if (Handle.Instance.CurrentGroup == Group)
@@ -131,7 +182,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
             }
             else
             {
-                Debug.Log("пустить струю в свою ячейку");
                 Handle.Instance.Dependences();
             }
         }
@@ -139,19 +189,15 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
         {
             if (Handle.Instance.isSend)
             {
-                Debug.Log("send");
-               
                 Handle.Instance.isSend = false;
                 Handle.Instance.SelectCell = this;
                 Handle.Instance.Dependences();
             }
         }
 
-    }*/
+    }
 
-
-  
-   public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         Handle.Instance.SelectCell = this;
         if (Handle.Instance.IsDrag)
@@ -161,6 +207,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
                 if (Handle.Instance.AddCell(this))
                 {
                     Handle.Instance.isSend = true;
+                    Select();
                 }
             }
             else

@@ -10,9 +10,11 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
     public List<Cell> cells = new List<Cell>();
     [SerializeField] Transform cursor;
     [SerializeField] CellColorGroup currentGroup;
-    [SerializeField] PathToCell path;
-    public Transform canvas;
+    [SerializeField] PathToCell  path;
+    [SerializeField] Sprite circle;
+     public Transform canvas;
 
+    public Vector3 CursorPosition => cursor.position;
 
     Cell cell;
 
@@ -23,9 +25,6 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
 
     public void Start()
     {
-
-        Vector3 CursorPosition = cursor.position;
-        Cell cell = GetComponent<Cell>();
         List<Cell> cells = new List<Cell>();
     }
 
@@ -46,20 +45,20 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
-        cursor.transform.position = eventData.pointerCurrentRaycast.screenPosition;
+       cursor.position = eventData.pointerCurrentRaycast.screenPosition;
     }
 
     public bool AddCell(Cell cell)
     {
         if (!cells.Contains(cell))
         {
-            Debug.Log("add");
+
             cells.Add(cell);
-            Debug.Log(cells.Count);
+          
             return true;
 
         }
-        Debug.Log("ect");
+      
 
         return false;
 
@@ -67,21 +66,32 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
 
     public void Dependences() 
     {
-        Debug.Log("1111");
+       
         if (SelectCell && cells.Count >= 1)
         {
             foreach (var item in cells)
             {
-                Debug.Log("/2");
+                Debug.Log(1);
                 if (item == SelectCell) continue;
-                var t = Instantiate(path, canvas);
-                var value = item.Count / 2;
-                item.Count -= value;
+                var t = Instantiate(path, canvas, circle);
+                var value = item.CurCount / 2;
+                Debug.Log(value);
+                item.CurCount -= value;
                 t.Set(item.transform, SelectCell, value, CurrentGroup);
-                Debug.Log("Create dependences");
+              
+                
             }
         }
+    
+        foreach (var cel in cells)
+        {
+            cel.isSelect = false;
+            cel.Diselect();
+        }
+        IsDrag = false;
         cells.Clear();
+      
+       
 
     }
 
