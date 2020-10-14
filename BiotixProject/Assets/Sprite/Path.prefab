@@ -4848,7 +4848,7 @@ MonoBehaviour:
   group: {fileID: 0}
   count: 0
   circle: {fileID: 8276875492620493338}
-  speed: 1
+  speed: 2
   line: {fileID: 2968346486159009450}
 --- !u!120 &2968346486159009450
 LineRenderer:

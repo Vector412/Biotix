@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*/  IPointerExitHandler
 {
     [SerializeField] int currentCountCell;
@@ -16,7 +15,8 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
     [SerializeField] Image imageColor;
     [SerializeField] LineRenderer line;
 
-    public Action ChangeColor = delegate { };
+    public UnityEvent OnChangeGroup;
+    
 
     bool isAddStarted;
     bool isMinusStarted;
@@ -49,6 +49,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
         }
 
         countText.text = currentCountCell.ToString();
+        OnChangeGroup.AddListener(GameManager.Instance.CheckList);
     }
 
     IEnumerator AddCount()
@@ -98,7 +99,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
     
     public void Add(int count, CellColorGroup group)
     {
-
+      
         if (Group == group)
         {
             CurCount += count;
@@ -111,7 +112,8 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
                 imageColor.color = group.GroupColor;
                 colorGroup = group;
                 CurCount *= -1;
-                ChangeColor();
+                OnChangeGroup.Invoke();
+
             }
             else if (CurCount == 0)
             {
@@ -130,6 +132,7 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
 
     private void LateUpdate()
     {
+        
         Check();
         if (isSelect)
         {

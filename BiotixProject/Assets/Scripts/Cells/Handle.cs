@@ -78,8 +78,9 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
                 Debug.Log(value);
                 item.CurCount -= value;
                 t.Set(item.transform, SelectCell, value, CurrentGroup);
-              
-                
+               value.ToString();
+
+
             }
         }
     
