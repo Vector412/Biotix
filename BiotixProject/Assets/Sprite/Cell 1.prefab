@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8774390946049134394}
   - component: {fileID: 720749281734979236}
   - component: {fileID: 4555180801706436063}
+  - component: {fileID: 8175873725210773738}
+  - component: {fileID: 8402451262505041027}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -74,6 +76,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &8175873725210773738
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152156563390697262}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a8d05c2d4ff4b44da9d30ff8a1212b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8402451262505041027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152156563390697262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da8c99a173a0bf499d765e12fff5760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedCircle: {fileID: 8175873725210773738}
 --- !u!1 &1615883460843907678
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +137,7 @@ RectTransform:
   m_GameObject: {fileID: 1615883460843907678}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 8774390946049134394}
   - {fileID: 367682746179923889}
@@ -170,7 +204,7 @@ MonoBehaviour:
   count: 0
   countText: {fileID: 3781507182705948084}
   colorGroup: {fileID: 0}
-  imageColor: {fileID: 0}
+  imageColor: {fileID: 1144084369861162246}
   line: {fileID: -3756363370872027233}
   active: {fileID: 3579230230238121238}
   OnChangeGroup:
@@ -183,7 +217,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615883460843907678}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

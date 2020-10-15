@@ -626,10 +626,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 6c794c36-7a0e-4aef-83e8-a610b2d80f41
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: BiotixProject
+  organizationId: vityapechyrikhin
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

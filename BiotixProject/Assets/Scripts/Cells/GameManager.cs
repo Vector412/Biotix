@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Advertisements;
 public class GameManager : GenericSingletonClass<GameManager>
 {
     [SerializeField] List<Cell> cells;
@@ -10,6 +11,10 @@ public class GameManager : GenericSingletonClass<GameManager>
 
     void Start()
     {
+        if (Advertisement.isSupported)
+        {
+            Advertisement.Initialize("3864627", false);
+        }
         cells = FindObjectsOfType<Cell>().ToList();
     }
 
@@ -20,10 +25,21 @@ public class GameManager : GenericSingletonClass<GameManager>
         if (cellsBot == 0)
         {
             Debug.Log("You win");
+            ShowAds();
+
         }
         else if (cellsPlayer == 0)
         {
+            ShowAds();
             Debug.Log("You lose");
+        }
+    }
+
+    public void ShowAds()
+    {
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show("video");
         }
     }
 }
