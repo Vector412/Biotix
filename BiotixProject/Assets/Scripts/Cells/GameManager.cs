@@ -1,46 +1,29 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 public class GameManager : GenericSingletonClass<GameManager>
 {
-    public List<Cell> cells;
-    public List<Cell> cellsBot;
-   
-    [SerializeField] CellColorGroup colorGroup;
-   
+    [SerializeField] List<Cell> cells;
+    [SerializeField] CellColorGroup botGroup;
+    [SerializeField] CellColorGroup playerGroup;
+
     void Start()
     {
         cells = FindObjectsOfType<Cell>().ToList();
-        for (int i = 0; i < cells.Count; i++)
-        {
-            if (cells[i].Group == null)
-            {
-                cells.RemoveAt(i--);
-            }
-        }
     }
 
     public void CheckList()
     {
-        Debug.Log("Ya");
-        for (int i = 0; i < cells.Count; i++)
-        {
-            if (cells[i].Group != colorGroup)
-            {
-                cellsBot.Add(cells[i]);
-                cells.RemoveAt(i--);
-            }
-        }
-        if (cells.Count == 0)
-        {
-            Debug.Log("You lose");
-        }
-        else
+        var cellsBot = cells.Where(n => n.Group == botGroup).Count();
+        var cellsPlayer = cells.Where(n => n.Group == playerGroup).Count();
+        if (cellsBot == 0)
         {
             Debug.Log("You win");
         }
+        else if (cellsPlayer == 0)
+        {
+            Debug.Log("You lose");
+        }
     }
-
- 
 }

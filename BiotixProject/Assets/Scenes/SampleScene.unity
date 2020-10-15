@@ -154,8 +154,6 @@ MonoBehaviour:
   otherCells: []
   botGroup: {fileID: 1959209230}
   pathTo: {fileID: 1123491678947649253, guid: 99330eb03e3f78f44bba063efaa417ea, type: 3}
-  group: {fileID: 1959209230}
-  countText: {fileID: 0}
   canvas: {fileID: 1375374531}
   circle: {fileID: 1574963842}
 --- !u!4 &166028443
@@ -513,8 +511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cells: []
-  cellsBot: []
-  colorGroup: {fileID: 224866912}
+  botGroup: {fileID: 1959209230}
+  playerGroup: {fileID: 224866912}
 --- !u!4 &1996614348
 Transform:
   m_ObjectHideFlags: 0
@@ -589,12 +587,12 @@ PrefabInstance:
     - target: {fileID: 4374812634308611901, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentCountCell
-      value: 6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4374812634308611901, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: count
-      value: 6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4374812634854875445, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
@@ -604,12 +602,12 @@ PrefabInstance:
     - target: {fileID: 4374812634854875445, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentCountCell
-      value: 6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4374812634854875445, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: count
-      value: 6
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4521348492296934281, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
@@ -725,6 +723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4521348492837156795, guid: a70fe67194ddaaf4a916c400971a3d4d,
+        type: 3}
+      propertyPath: m_Text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8054494980771888685, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}

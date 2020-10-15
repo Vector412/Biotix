@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*/  IPointerExitHandler
+public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  IPointerExitHandler
 {
     [SerializeField] int currentCountCell;
     public int count;
@@ -14,13 +13,12 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
     [SerializeField] CellColorGroup colorGroup;
     [SerializeField] Image imageColor;
     [SerializeField] LineRenderer line;
+    [SerializeField] GameObject active;
 
     public UnityEvent OnChangeGroup;
-    
-
-    bool isAddStarted;
-    bool isMinusStarted;
-    public bool isSelect { get; set; }
+    private bool isAddStarted;
+    private bool isMinusStarted;
+    public bool IsSelect { get; set; }
 
     public int CurCount
     {
@@ -49,7 +47,9 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
         }
 
         countText.text = currentCountCell.ToString();
+        OnChangeGroup.AddListener(Ai.Instance.CheckCellInList);
         OnChangeGroup.AddListener(GameManager.Instance.CheckList);
+        
     }
 
     IEnumerator AddCount()
@@ -132,9 +132,8 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
 
     private void LateUpdate()
     {
-        
         Check();
-        if (isSelect)
+        if (IsSelect)
         {
             var pathFrom = FromScreenToWorld(transform.position);
             var pathTo = FromScreenToWorld(Handle.Instance.CursorPosition);
@@ -143,14 +142,21 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
         }
     }
 
-    public void Select()
+    public void CellActive()
     {
         line.enabled = true;
-        isSelect = true;
+        IsSelect = true;
+        ActiveCell(true); ;
     }
-    public void Diselect()
+    public void CellDeactive()
     {
         line.enabled = false;
+        ActiveCell(false); ;
+    }
+
+    public void ActiveCell(bool isActive)
+    {
+        active.gameObject.SetActive(isActive);
     }
 
     public void ChangeCount()
@@ -182,10 +188,12 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
             if (Handle.Instance.AddCell(this))
             {
                 Handle.Instance.isSend = true;
+                ActiveCell(true);
             }
             else
             {
                 Handle.Instance.Dependences();
+                
             }
         }
         else
@@ -203,14 +211,16 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, /*IPointerClickHandler*
     public void OnPointerEnter(PointerEventData eventData)
     {
         Handle.Instance.SelectCell = this;
+       
         if (Handle.Instance.IsDrag)
         {
             if (Handle.Instance.CurrentGroup == Group)
             {
                 if (Handle.Instance.AddCell(this))
                 {
+                   
                     Handle.Instance.isSend = true;
-                    Select();
+                    CellActive();
                 }
             }
             else

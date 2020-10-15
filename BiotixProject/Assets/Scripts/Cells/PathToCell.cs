@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
 public class PathToCell : MonoBehaviour
@@ -10,37 +8,32 @@ public class PathToCell : MonoBehaviour
     [SerializeField] Cell pathToCell;
     [SerializeField] CellColorGroup group;
     [SerializeField] int count;
-
     [SerializeField] Transform circle;
-
-   
     [SerializeField] float speed;
-    float time;
-  
     [SerializeField] LineRenderer line;
+
+    private float time;
     public Transform PathFrom { get => pathFromCell; set => pathFromCell = value; }
     public Cell PathTo { get => pathToCell; set => pathToCell = value; }
     public int Count { get => count; set => count = value; }
 
-
-   
     public void Start()
     {
-   
         var pathFrom = FromScreenToWorld(pathFromCell.transform.position);
         var pathTo = FromScreenToWorld(pathToCell.transform.position);
+
         line.SetPosition(0, pathFrom);
         line.SetPosition(1, pathTo);
         time = Vector2.Distance(pathFrom, pathTo) / speed;
+
         circle.position = pathFrom;
         var particle = GetComponentInChildren<ParticleSystem>();
         particle.maxParticles = Count;
         particle.startColor = group.GroupColor;
+
         circle.DOMove(pathTo, time);
         StartCoroutine(WaitFromTo());
     }
-
- 
 
     public void Set(Transform pathfr, Cell pathTo, int count, CellColorGroup group)
     {
@@ -49,7 +42,6 @@ public class PathToCell : MonoBehaviour
         this.Count = count;
         this.group = group;
     }
-
 
     public Vector3 FromScreenToWorld(Vector3 pos)
     {
@@ -61,11 +53,7 @@ public class PathToCell : MonoBehaviour
     IEnumerator WaitFromTo()
     {
         yield return new WaitForSeconds(time);
-
         pathToCell.Add(Count, group);
         Destroy(gameObject);
-    }
-
-   
-         
+    } 
 }
