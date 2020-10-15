@@ -537,7 +537,7 @@ PrefabInstance:
     - target: {fileID: 1949005123873298692, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentCountCell
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1949005123873298692, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
@@ -552,7 +552,7 @@ PrefabInstance:
     - target: {fileID: 2622278786203288446, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentCountCell
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2622278786203288446, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
@@ -567,7 +567,7 @@ PrefabInstance:
     - target: {fileID: 3016767816163590968, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentCountCell
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3016767816163590968, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}

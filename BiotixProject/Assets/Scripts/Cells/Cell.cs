@@ -36,7 +36,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  
     }
     private void Start()
     {
-        currentCountCell = count;
         if (colorGroup != null)
         {
             imageColor.color = colorGroup.GroupColor;
@@ -233,7 +232,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  
             }
         }
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         if (Handle.Instance.SelectCell == this)

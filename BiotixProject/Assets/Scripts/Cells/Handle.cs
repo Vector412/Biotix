@@ -47,7 +47,6 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
 
     public void Dependences()
     {
-
         if (SelectCell && cells.Count >= 1)
         {
             foreach (var item in cells)
