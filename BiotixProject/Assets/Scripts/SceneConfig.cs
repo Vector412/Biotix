@@ -25,6 +25,7 @@ public class SceneConfig : MonoBehaviour
     }
     public void Reload()
     {
+        ContinueGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

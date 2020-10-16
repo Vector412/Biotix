@@ -3445,6 +3445,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4521348492296934283, guid: a70fe67194ddaaf4a916c400971a3d4d,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4521348492296934283, guid: a70fe67194ddaaf4a916c400971a3d4d,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4521348492296934283, guid: a70fe67194ddaaf4a916c400971a3d4d,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 4521348492296934286, guid: a70fe67194ddaaf4a916c400971a3d4d,
         type: 3}
       propertyPath: currentGroup
