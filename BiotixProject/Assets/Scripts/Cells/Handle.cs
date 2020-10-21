@@ -1,11 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-
     [SerializeField] List<Cell> cells = new List<Cell>();
     [SerializeField] Transform cursor;
     [SerializeField] CellColorGroup currentGroup;
@@ -51,7 +49,10 @@ public class Handle : GenericSingletonClass<Handle>, IBeginDragHandler, IDragHan
         {
             foreach (var item in cells)
             {
-                if (item == SelectCell) continue;
+                if (item == SelectCell)
+                {
+                    continue;
+                } 
                 var t = Instantiate(path, canvas, circle);
                 var value = item.CurCount / 2;
                 item.CurCount -= value;

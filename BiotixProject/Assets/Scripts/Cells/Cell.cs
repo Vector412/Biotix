@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,15 +6,14 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  IPointerExitHandler
 {
     [SerializeField] int currentCountCell;
-    public int count;
-
+    [SerializeField] int count;
     [SerializeField] Text countText;
     [SerializeField] CellColorGroup colorGroup;
     [SerializeField] Image imageColor;
     [SerializeField] LineRenderer line;
     [SerializeField] GameObject active;
+    [SerializeField] UnityEvent OnChangeGroup;
 
-    public UnityEvent OnChangeGroup;
     private bool isAddStarted;
     private bool isMinusStarted;
     public bool IsSelect { get; set; }
@@ -65,7 +63,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  
             }
         }
     }
-
     IEnumerator MinusCount()
     {
         isMinusStarted = true;
@@ -95,7 +92,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  
         }
     }
 
-    
     public void Add(int count, CellColorGroup group)
     {
       
@@ -192,7 +188,6 @@ public class Cell : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler,  
             else
             {
                 Handle.Instance.Dependences();
-                
             }
         }
         else

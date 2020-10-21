@@ -10,8 +10,7 @@ public class PathToCell : MonoBehaviour
     [SerializeField] int count;
     [SerializeField] Transform circle;
     [SerializeField] float speed;
-    [SerializeField] LineRenderer line;
-
+   
     private float time;
     public Transform PathFrom { get => pathFromCell; set => pathFromCell = value; }
     public Cell PathTo { get => pathToCell; set => pathToCell = value; }
@@ -21,11 +20,7 @@ public class PathToCell : MonoBehaviour
     {
         var pathFrom = FromScreenToWorld(pathFromCell.transform.position);
         var pathTo = FromScreenToWorld(pathToCell.transform.position);
-
-        line.SetPosition(0, pathFrom);
-        line.SetPosition(1, pathTo);
         time = Vector2.Distance(pathFrom, pathTo) / speed;
-
         circle.position = pathFrom;
         var particle = GetComponentInChildren<ParticleSystem>();
         particle.maxParticles = Count;

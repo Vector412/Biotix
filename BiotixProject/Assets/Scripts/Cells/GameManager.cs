@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Advertisements;
@@ -24,14 +23,14 @@ public class GameManager : GenericSingletonClass<GameManager>
         var cellsPlayer = cells.Where(n => n.Group == playerGroup).Count();
         if (cellsBot == 0)
         {
-            Debug.Log("You win");
+            LoadLevel.Instance.LoadNextLevel();
             ShowAds();
 
         }
         else if (cellsPlayer == 0)
         {
             ShowAds();
-            Debug.Log("You lose");
+            LoadLevel.Instance.LoadNextLevel();
         }
     }
 

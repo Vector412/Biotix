@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneConfig : MonoBehaviour
@@ -25,7 +23,13 @@ public class SceneConfig : MonoBehaviour
     }
     public void Reload()
     {
+        ContinueGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNaextLevel(int number)
+    {
+        LoadLevel.level = number;
     }
 
 
