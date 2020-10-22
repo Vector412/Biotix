@@ -512,16 +512,6 @@ PrefabInstance:
       propertyPath: colorGroup
       value: 
       objectReference: {fileID: 1427675852273096271}
-    - target: {fileID: 7082728472803707135, guid: c916e2b59027ee643b0d0591394507fd,
-        type: 3}
-      propertyPath: currentCountCell
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7082728472803707135, guid: c916e2b59027ee643b0d0591394507fd,
-        type: 3}
-      propertyPath: count
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 8584189321105107698, guid: c916e2b59027ee643b0d0591394507fd,
         type: 3}
       propertyPath: colorGroup
